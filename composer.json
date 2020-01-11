@@ -1,0 +1,32 @@
+{
+    "name": "webcoast/versatile-search",
+    "description": "A versatile and extendable search for TYPO3 CMS",
+    "type": "typo3-cms-extension",
+    "keywords": [
+        "typo3",
+        "search",
+        "indexed_search"
+    ],
+    "license": "GPL-3.0+",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Thorben Nissen",
+            "email": "thorben.nissen@kapp-hamburg.de"
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "WEBcoast\\VersatileSearch\\": "Classes"
+        }
+    },
+    "require": {
+        "typo3/cms-core": "^9.5.0"
+    }
+}

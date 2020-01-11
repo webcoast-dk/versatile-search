@@ -1,0 +1,16 @@
+plugin.tx_versatilesearch {
+    settings {
+        parameters {
+            # The query parameter containing the search word
+            search = q
+            # The query parameter containing the page number of the search result
+            page = page
+        }
+        pagination {
+            itemsPerPage = 10
+            insertAbove = 0
+            insertBelow = 1
+            maximumNumberOfLinks = 7
+        }
+    }
+}

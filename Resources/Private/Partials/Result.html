@@ -1,0 +1,20 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/ViewHelper" xmlns:s="http://typo3.org/ns/WEBcoast/VersatileSearch/ViewHelpers" data-namespace-typo3-fluid="true">
+    <f:if condition="{results -> f:count()} > 0">
+        <f:then>
+            <f:render partial="Pagination/Index" arguments="{settings: settings, pagination: pagination}" contentAs="content">
+                <ul class="result__list">
+                    <f:for each="{results}" as="rawItem">
+                        <s:convertRawResult raw="{rawItem}">
+                            <f:render partial="Item" arguments="{_all}" />
+                        </s:convertRawResult>
+                    </f:for>
+                </ul>
+            </f:render>
+        </f:then>
+        <f:else>
+            <p class="result__empty">
+                <f:translate id="no_results" />
+            </p>
+        </f:else>
+    </f:if>
+</html>

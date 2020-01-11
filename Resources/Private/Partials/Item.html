@@ -1,0 +1,8 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:s="http://typo3.org/ns/WEBcoast/VersatileSearch/ViewHelpers" data-namespace-typo3-fluid="true">
+<li class="result__item">
+    <h2 class="result__title">
+        <f:link.page pageUid="{resultItem.pageId}" additionalParams="{resultItem.urlParameters}" noCacheHash="!{resultItem.useCacheHash}">{resultItem.title}</f:link.page>
+    </h2>
+    <p class="result__description">{resultItem.description -> s:highlightSearchWord(searchWords: '{searchWords}')}</p>
+</li>
+</html>

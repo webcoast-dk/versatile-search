@@ -1,0 +1,63 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/ViewHelper" xmlns:s="http://typo3.org/ns/WEBcoast/VersatileSearch/ViewHelpers" data-namespace-typo3-fluid="true">
+<ul class="pagination__list">
+    <f:if condition="{pagination.previousPage}">
+        <li class="pagination__item pagination__item--previous">
+            <f:if condition="{pagination.previousPage} > 1">
+                <f:then>
+                    <s:pagination.link page="{pagination.previousPage}" rel="prev" class="pagination__link" settings="{settings}">
+                        <f:translate id="pagination.previous"/>
+                    </s:pagination.link>
+                </f:then>
+                <f:else>
+                    <s:pagination.link settings="{settings}" rel="prev">
+                        <f:translate id="pagination.previous"/>
+                    </s:pagination.link>
+                </f:else>
+            </f:if>
+        </li>
+    </f:if>
+    <f:if condition="{pagination.displayRangeStart} > 1">
+        <li class="pagination__item pagination__item--first">
+            <s:pagination.link page="{pagination.previous}" class="pagination__link" settings="{settings}"><f:translate id="pagination.page" arguments="{0: 1}" /></s:pagination.link>
+        </li>
+    </f:if>
+    <f:if condition="{pagination.hasLessPages}">
+        <li class="pagination__item pagination__item--more">…</li>
+    </f:if>
+    <f:for each="{pagination.pages}" as="page">
+        <f:if condition="{page.isCurrent}">
+            <f:then>
+                <li class="pagination__item pagination__item--current">
+                    <f:translate id="pagination.page" arguments="{0: page.number}" />
+                </li>
+            </f:then>
+            <f:else>
+                <li class="pagination__item">
+                    <f:if condition="{page.number} > 1">
+                        <f:then>
+                            <s:pagination.link page="{page.number}" class="pagination__link" settings="{settings}"><f:translate id="pagination.page" arguments="{0: page.number}" /></s:pagination.link>
+                        </f:then>
+                        <f:else>
+                            <s:pagination.link class="pagination__link" settings="{settings}"><f:translate id="pagination.page" arguments="{0: page.number}" /></s:pagination.link>
+                        </f:else>
+                    </f:if>
+                </li>
+            </f:else>
+        </f:if>
+    </f:for>
+    <f:if condition="{pagination.hasMorePages}">
+        <li class="pagination__item pagination__item--more">…</li>
+    </f:if>
+    <f:if condition="{pagination.displayRangeEnd} < {pagination.numberOfPages}">
+        <li class="pagination__item pagination__item--last">
+            <s:pagination.link class="pagination__link" settings="{settings}" page="{pagination.numberOfPages}"><f:translate id="pagination.page" arguments="{0: pagination.numberOfPages}" /></s:pagination.link>
+        </li>
+    </f:if>
+    <f:if condition="{pagination.nextPage}">
+        <li class="pagination__item pagination__item--next">
+            <s:pagination.link class="pagination__link" settings="{settings}" page="{pagination.nextPage}">
+                <f:translate id="pagination.next"/>
+            </s:pagination.link>
+        </li>
+    </f:if>
+</ul>
