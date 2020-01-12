@@ -22,9 +22,15 @@ class SearchController extends ActionController
         }
 
         $this->view->assignMultiple([
+            'searchString' => $searchString,
             'searchWords' => $searchResults['searchWords'],
             'results' => $searchResults['results'],
             'pagination' => $searchResults['pagination']
         ]);
+    }
+
+    public function formAction()
+    {
+        // This action has no logic. It just displays the static search form and is cached.
     }
 }

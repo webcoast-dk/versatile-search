@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xliff version="1.2">
+    <file source-language="en" target-language="de" product-name="versatile-search">
+        <body>
+            <trans-unit id="plugin.search.title">
+                <source>Search (optional with form)</source>
+                <target>Suche (optional mit Formular)</target>
+            </trans-unit>
+            <trans-unit id="plugin.form.title">
+                <source>Search form only</source>
+                <target>Suchformular</target>
+            </trans-unit>
+            <trans-unit id="plugin.typoscript">
+                <source>Basic search settings</source>
+                <target>Suche: Standardeinstellungen</target>
+            </trans-unit>
+
+            <trans-unit id="conf.search.backend">
+                <source>Search backend: Which search backend should be used</source>
+                <target>Such-Backend: Welches Backend soll genutzt werden</target>
+            </trans-unit>
+            <trans-unit id="conf.search.backend.none">
+                <source>None: You need to register a custom backend from another extension then</source>
+                <target>Keins: Es muss über eine andere Extension ein Such-Backend registriert werden</target>
+            </trans-unit>
+            <trans-unit id="conf.search.backend.indexed_search">
+                <source>Indexed search: Uses indexed_search backend and behaves almost like the original indexed_search plugin</source>
+                <target>Indexed search: Nutzt das indexed_search Backend und verhält sich weitestgehend wie das orginale indexed_search plugin</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

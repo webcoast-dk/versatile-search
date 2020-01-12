@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <xliff version="1.2">
-    <file source-language="en" product-name="versatile-search">
+    <file source-language="en" target-language="de" product-name="versatile-search">
         <body>
             <trans-unit id="no_results">
                 <source>No result were found for "%s".</source>
+                <target>Keine Ergebnisse für "%s" gefunden.</target>
             </trans-unit>
 
             <trans-unit id="search.placeholder">
                 <source>Search for ...</source>
+                <target>Suchen nach ...</target>
             </trans-unit>
             <trans-unit id="search.button">
                 <source>Search</source>
+                <target>Suchen</target>
             </trans-unit>
 
             <trans-unit id="pagination.previous">
                 <source>&lt;</source>
+                <target>&lt;</target>
             </trans-unit>
             <trans-unit id="pagination.next">
                 <source>&gt;</source>
+                <target>&gt;</target>
             </trans-unit>
             <trans-unit id="pagination.page">
                 <source>%d</source>
+                <target>%d</target>
             </trans-unit>
         </body>
     </file>

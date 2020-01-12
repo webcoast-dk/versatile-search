@@ -12,9 +12,11 @@
             </f:render>
         </f:then>
         <f:else>
-            <p class="result__empty">
-                <f:translate id="no_results" />
-            </p>
+            <f:if condition="{searchWords}">
+                <p class="result__empty">
+                    <f:translate id="no_results" arguments="{0: searchString}" />
+                </p>
+            </f:if>
         </f:else>
     </f:if>
 </html>

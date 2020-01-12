@@ -12,5 +12,6 @@ plugin.tx_versatilesearch {
             insertBelow = 1
             maximumNumberOfLinks = 7
         }
+        searchPid =
     }
 }

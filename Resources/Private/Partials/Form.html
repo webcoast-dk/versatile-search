@@ -1,0 +1,7 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/ViewHelper" xmlns:s="http://typo3.org/ns/WEBcoast/VersatileSearch/ViewHelpers" data-namespace-typo3-fluid="true">
+<form action="{f:uri.page(pageUid: settings.searchPid)}" method="GET" class="search__form">
+    <input type="search" name="{settings.parameters.search}" class="search__field" value="{searchString}" placeholder="{f:translate(id: 'search.placeholder')}">
+    <button type="submit" class="search__button">
+        <f:translate id="search.button"/>
+    </button>
+</form>
