@@ -47,9 +47,10 @@ class IndexedSearchBackend extends AbstractBackend
 
     protected function initializeSearchRepository($searchData)
     {
-        $searchData['languageUid'] = $searchData['languageUid'] = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id', 0);
+        $searchData['languageUid'] = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id', 0);
         $searchData['numberOfResults'] = $this->getPaginationItemsPerPage();
         $searchData['sortOrder'] = 'rank_flag';
+        $searchData['mediaType'] = '-1'; // Search for everything
         $this->searchRepository->initialize(
             [
                 'searchSkipExtendToSubpagesChecking' => true,
@@ -80,6 +81,7 @@ class IndexedSearchBackend extends AbstractBackend
 
         return [
             'title' => $rawData['item_title'],
+            'type' => self::getItemType($rawData),
             'description' => $rawData['item_description'],
             'pageId' => $rawData['page_id'],
             'urlParameters' => $urlParameters,
@@ -87,7 +89,20 @@ class IndexedSearchBackend extends AbstractBackend
             'created' => \DateTime::createFromFormat('U', $rawData['item_crdate']),
             'lastChanged' => \DateTime::createFromFormat('U', $rawData['item_mtime']),
             'category' => $rawData['freeIndexUid'],
-            'recordId' => $rawData['recordUid']
+            'recordId' => $rawData['recordUid'],
+            'fileName' => $rawData['data_filename']
         ];
+    }
+
+    protected static function getItemType($rawData)
+    {
+        if (isset($rawData['data_filename']) && !empty(trim($rawData['data_filename']))) {
+            return 'file';
+        }
+        if (isset($rawData['page_id']) && $rawData['page_id'] > 0) {
+            return 'page';
+        }
+
+        return '';
     }
 }
