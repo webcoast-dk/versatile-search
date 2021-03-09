@@ -2,15 +2,17 @@
 
 namespace WEBcoast\VersatileSearch\ViewHelpers;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderStatic;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 class HighlightSearchWordViewHelper extends AbstractViewHelper
 {
-    use CompileWithContentArgumentAndRenderStatic;
+    use CompileWithRenderStatic;
 
     protected $escapeOutput = false;
+
+    protected $escapeChildren = false;
 
     public function initializeArguments()
     {
@@ -18,9 +20,6 @@ class HighlightSearchWordViewHelper extends AbstractViewHelper
 
         $this->registerArgument('searchWords', 'array', 'The search word to highlight', true);
         $this->registerArgument('wrap', 'string', 'The wrap around the search word', false, '<span class="result__highlight">|</span>');
-        $this->registerArgument('content', 'string', 'Input text or rendered children');
-
-        $this->contentArgumentName = 'content';
     }
 
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
