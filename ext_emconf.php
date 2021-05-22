@@ -3,21 +3,8 @@
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Versatile Search',
     'description' => 'A versatile and extendable search extension',
+    'version' => '1.0.0',
     'category' => 'plugin',
-    'author' => 'Thorben Nissen',
-    'author_email' => 'thorben.nissen@kapp-hamburg.de',
-    'author_company' => '',
-    'shy' => '',
-    'priority' => '',
-    'module' => '',
-    'state' => 'stable',
-    'internal' => '',
-    'uploadfolder' => '0',
-    'createDirs' => '',
-    'modify_tables' => '',
-    'clearCacheOnLoad' => 0,
-    'lockType' => '',
-    'version' => '1.0.0-dev',
     'constraints' => [
         'depends' => [
             'typo3' => '9.5.0-10.4.99',
@@ -27,5 +14,15 @@ $EM_CONF[$_EXTKEY] = [
         ],
         'suggests' => [
         ],
+    ],
+    'state' => 'stable',
+    'clearCacheOnLoad' => 0,
+    'author' => 'Thorben Nissen',
+    'author_email' => 'thorben@webcoast.dk',
+    'author_company' => '',
+    'autoload' => [
+        'psr-4' => [
+            'WEBcoast\\VersatileSearch\\' => 'Classes'
+        ]
     ],
 ];
