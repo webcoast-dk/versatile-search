@@ -5,12 +5,15 @@ plugin.tx_versatilesearch {
             search = q
             # The query parameter containing the page number of the search result
             page = page
+            # The category parameter
+            category = c
         }
         pagination {
-            itemsPerPage = 10
+            itemsPerPage = 3
             insertAbove = 0
             insertBelow = 1
             maximumNumberOfLinks = 7
+            translatePreviousNext = 1
         }
         searchPid =
     }

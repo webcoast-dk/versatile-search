@@ -1,16 +1,37 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/ViewHelper" xmlns:s="http://typo3.org/ns/WEBcoast/VersatileSearch/ViewHelpers" data-namespace-typo3-fluid="true">
-    <f:if condition="{results -> f:count()} > 0">
+    <f:if condition="{types -> f:count()} > 1">
         <f:then>
-            <f:render partial="Pagination/Index" arguments="{settings: settings, pagination: pagination}" contentAs="content">
-                <ul class="result__list">
-                    <f:for each="{results}" as="rawItem">
-                        <s:convertRawResult raw="{rawItem}">
-                            <f:render partial="Item" arguments="{_all}" />
-                        </s:convertRawResult>
+            <div class="tabs js-tabs">
+                <nav class="tabs__nav" role="navigation">
+                    <ul class="tabs__list" role="tablist">
+                        <f:for each="{types}" as="tab" iteration="tabsIterator">
+                            <f:if condition="{tab.results -> f:count()} > 0">
+                                <li class="tabs__item js-tabs-item" data-target="#search_tab{tabsIterator.index}" role="tab">
+                                    {tab.configuration.title}
+                                </li>
+                            </f:if>
+                        </f:for>
+                    </ul>
+                </nav>
+                <div class="tabs__content">
+                    <f:for each="{types}" as="tab" iteration="tabsIterator">
+                        <div class="tabs__panel js-tabs-panel" id="search_tab{tabsIterator.index}" role="tabpanel">
+                            <f:alias map="{results: tab.results, pagination: tab.pagination, additionalPaginationParams: {c: tab.configuration.uid}}">
+                                <f:render partial="ResultList" arguments="{_all}" />
+                            </f:alias>
+                        </div>
                     </f:for>
-                </ul>
-            </f:render>
+                </div>
+            </div>
         </f:then>
+        <f:else if="{types -> f:count()} == 1">
+            <f:alias map="{results: types.0.results, pagination: types.0.pagination}">
+                <f:render partial="ResultList" arguments="{_all}" />
+            </f:alias>
+        </f:else>
+        <f:else if="{results -> f:count()} > 0">
+            <f:render partial="ResultList" arguments="{_all}" />
+        </f:else>
         <f:else>
             <f:if condition="{searchWords}">
                 <p class="result__empty">

@@ -21,12 +21,8 @@ class SearchController extends ActionController
             $searchResults = [];
         }
 
-        $this->view->assignMultiple([
-            'searchString' => $searchString,
-            'searchWords' => $searchResults['searchWords'],
-            'results' => $searchResults['results'],
-            'pagination' => $searchResults['pagination']
-        ]);
+        $this->view->assign('searchString', $searchString);
+        $this->view->assignMultiple($searchResults);
     }
 
     public function formAction()

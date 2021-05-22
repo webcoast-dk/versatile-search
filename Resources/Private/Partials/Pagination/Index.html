@@ -1,10 +1,10 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/ViewHelper" data-namespace-typo3-fluid="true">
-<f:if condition="{settings.pagination.insertAbove}">
-    <f:render partial="Pagination/Paginator" arguments="{pagination: pagination, settings: settings}"/>
+<f:if condition="{pagination.numberOfPages} > 1 && {settings.pagination.insertAbove}">
+    <f:render partial="Pagination/Paginator" arguments="{_all}"/>
 </f:if>
 
 {content -> f:format.raw()}
 
-<f:if condition="{settings.pagination.insertBelow}">
-    <f:render partial="Pagination/Paginator" arguments="{pagination: pagination, settings: settings}"/>
+<f:if condition="{pagination.numberOfPages} > 1 && {settings.pagination.insertBelow}">
+    <f:render partial="Pagination/Paginator" arguments="{_all}"/>
 </f:if>

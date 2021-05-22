@@ -10,6 +10,8 @@
             </f:case>
         </f:switch>
     </h2>
-    <p class="result__description">{resultItem.description -> s:highlightSearchWord(searchWords: '{searchWords}')}</p>
+    <f:if condition="{resultItem.description}">
+        <p class="result__description">{resultItem.description -> s:highlightSearchWord(searchWords: '{searchWords}')}</p>
+    </f:if>
 </li>
 </html>

@@ -2,6 +2,7 @@
 
 namespace WEBcoast\VersatileSearch\Backend;
 
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\IndexedSearch\Domain\Repository\IndexSearchRepository;
@@ -27,22 +28,55 @@ class IndexedSearchBackend extends AbstractBackend
     public function search($searchString)
     {
         $page = $this->getCurrentPage();
+        $category = $this->getCurrentCategory();
         // Always use current language for searches
         $searchData['pointer'] = $page ? $page - 1 : 0;
         $searchData['sword'] = $searchString;
         $this->initializeSearchRepository($searchData);
         $searchWords = IndexedSearchUtility::getExplodedSearchString($searchString, 'OR', []);
-        $results = $this->searchRepository->doSearch($searchWords);
+        $indexConfigurations = [];
+        foreach (GeneralUtility::trimExplode(',', $this->settings['indexConfigurations'], true) as $indexConfigurationId) {
+            $indexConfiguration = BackendUtility::getRecord('index_config', $indexConfigurationId);
+            if ($indexConfiguration && !$indexConfiguration['hidden']) {
+                $indexConfigurations[] = $indexConfiguration;
+            }
+        }
 
-        return [
+        $data = [
             'searchWords' => array_map(
                 function ($item) {
                     return $item['sword'];
                 },
                 $searchWords),
-            'results' => $results['resultRows'],
-            'pagination' => $this->buildPagination($results['count'])
+            'types' => [],
+            'results' => [],
+            'pagination' => []
         ];
+        if (count($indexConfigurations) > 0) {
+            foreach ($indexConfigurations as $indexConfiguration) {
+                if ($category === null || $category === (string)$indexConfiguration['uid']) {
+                    $results = $this->searchRepository->doSearch($searchWords, $indexConfiguration['uid']);
+                    if ($results['count'] > 0) {
+                        $data['types'][] = [
+                            'configuration' => $indexConfiguration,
+                            'results' => $results['resultRows'],
+                            'pagination' => $this->buildPagination($results['count'])
+                        ];
+                    }
+                } else {
+                    $data['types'][] = [
+                        'configuration' => $indexConfiguration,
+                        'results' => []
+                    ];
+                }
+            }
+        } else {
+            $results = $this->searchRepository->doSearch($searchWords);
+            $data['results'] = $results['resultRows'];
+            $data['pagination'] = $this->buildPagination($results['count']);
+        }
+
+        return $data;
     }
 
     protected function initializeSearchRepository($searchData)
@@ -70,7 +104,7 @@ class IndexedSearchBackend extends AbstractBackend
      */
     public static function fetchResult($rawData)
     {
-        $urlParameters = unserialize($rawData['cHashParams']);
+        $urlParameters = !empty($rawData['static_page_arguments']) ? json_decode($rawData['static_page_arguments'], true) : unserialize($rawData['cHashParams']);
         $urlParameters['L'] = $rawData['sys_language_uid'];
         ksort($urlParameters);
         $useCacheHash = false;

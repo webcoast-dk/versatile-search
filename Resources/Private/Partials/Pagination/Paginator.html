@@ -4,13 +4,27 @@
         <li class="pagination__item pagination__item--previous">
             <f:if condition="{pagination.previousPage} > 1">
                 <f:then>
-                    <s:pagination.link page="{pagination.previousPage}" rel="prev" class="pagination__link" settings="{settings}">
-                        <f:translate id="pagination.previous"/>
+                    <s:pagination.link page="{pagination.previousPage}" rel="prev" class="pagination__link" settings="{settings}" additionalParams="{additionalPaginationParams}">
+                        <f:if condition="{settings.pagination.translatePreviousNext}">
+                            <f:then>
+                                <f:translate id="pagination.previous"/>
+                            </f:then>
+                            <f:else>
+                                &nbsp;
+                            </f:else>
+                        </f:if>
                     </s:pagination.link>
                 </f:then>
                 <f:else>
                     <s:pagination.link settings="{settings}" rel="prev" class="pagination__link">
-                        <f:translate id="pagination.previous"/>
+                        <f:if condition="{settings.pagination.translatePreviousNext}">
+                            <f:then>
+                                <f:translate id="pagination.previous"/>
+                            </f:then>
+                            <f:else>
+                                &nbsp;
+                            </f:else>
+                        </f:if>
                     </s:pagination.link>
                 </f:else>
             </f:if>
@@ -18,7 +32,7 @@
     </f:if>
     <f:if condition="{pagination.displayRangeStart} > 1">
         <li class="pagination__item pagination__item--first">
-            <s:pagination.link page="{pagination.previous}" class="pagination__link" settings="{settings}"><f:translate id="pagination.page" arguments="{0: 1}" /></s:pagination.link>
+            <s:pagination.link page="{pagination.previous}" class="pagination__link" settings="{settings}" additionalParams="{additionalPaginationParams}"><f:translate id="pagination.page" arguments="{0: 1}" /></s:pagination.link>
         </li>
     </f:if>
     <f:if condition="{pagination.hasLessPages}">
@@ -35,7 +49,7 @@
                 <li class="pagination__item">
                     <f:if condition="{page.number} > 1">
                         <f:then>
-                            <s:pagination.link page="{page.number}" class="pagination__link" settings="{settings}"><f:translate id="pagination.page" arguments="{0: page.number}" /></s:pagination.link>
+                            <s:pagination.link page="{page.number}" class="pagination__link" settings="{settings}" additionalParams="{additionalPaginationParams}"><f:translate id="pagination.page" arguments="{0: page.number}" /></s:pagination.link>
                         </f:then>
                         <f:else>
                             <s:pagination.link class="pagination__link" settings="{settings}"><f:translate id="pagination.page" arguments="{0: page.number}" /></s:pagination.link>
@@ -50,14 +64,22 @@
     </f:if>
     <f:if condition="{pagination.displayRangeEnd} < {pagination.numberOfPages}">
         <li class="pagination__item pagination__item--last">
-            <s:pagination.link class="pagination__link" settings="{settings}" page="{pagination.numberOfPages}"><f:translate id="pagination.page" arguments="{0: pagination.numberOfPages}" /></s:pagination.link>
+            <s:pagination.link class="pagination__link" settings="{settings}" page="{pagination.numberOfPages}" additionalParams="{additionalPaginationParams}"><f:translate id="pagination.page" arguments="{0: pagination.numberOfPages}" /></s:pagination.link>
         </li>
     </f:if>
     <f:if condition="{pagination.nextPage}">
         <li class="pagination__item pagination__item--next">
-            <s:pagination.link class="pagination__link" settings="{settings}" page="{pagination.nextPage}">
-                <f:translate id="pagination.next"/>
+            <s:pagination.link class="pagination__link" settings="{settings}" page="{pagination.nextPage}" additionalParams="{additionalPaginationParams}">
+                <f:if condition="{settings.pagination.translatePreviousNext}">
+                    <f:then>
+                        <f:translate id="pagination.next"/>
+                    </f:then>
+                    <f:else>
+                        &nbsp;
+                    </f:else>
+                </f:if>
             </s:pagination.link>
         </li>
     </f:if>
 </ul>
+

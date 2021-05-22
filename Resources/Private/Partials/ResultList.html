@@ -1,0 +1,11 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/ViewHelper" xmlns:s="http://typo3.org/ns/WEBcoast/VersatileSearch/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:render partial="Pagination/Index" arguments="{_all}" contentAs="content">
+    <ul class="result__list">
+        <f:for each="{results}" as="rawItem">
+            <s:convertRawResult raw="{rawItem}">
+                <f:render partial="Item" arguments="{_all}"/>
+            </s:convertRawResult>
+        </f:for>
+    </ul>
+</f:render>
+</html>

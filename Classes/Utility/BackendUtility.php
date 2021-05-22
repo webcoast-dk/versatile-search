@@ -15,6 +15,9 @@ class BackendUtility implements SingletonInterface
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['versatile_search']['backend'] = $class;
     }
 
+    /**
+     * @return string
+     */
     public static function getSearchBackend()
     {
         if (!isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['versatile_search']['backend'])) {

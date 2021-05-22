@@ -40,6 +40,10 @@ abstract class AbstractBackend
         return (int)(GeneralUtility::_GP($this->settings['parameters']['page'] ?? 'page') ?? 1);
     }
 
+    protected function getCurrentCategory() {
+        return GeneralUtility::_GP($this->settings['parameters']['category'] ?? 'c') ?? null;
+    }
+
     protected function getPaginationItemsPerPage()
     {
         return $this->settings['pagination']['itemsPerPage'] ?? 10;
