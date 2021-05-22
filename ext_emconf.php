@@ -3,7 +3,7 @@
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Versatile Search',
     'description' => 'A versatile and extendable search extension',
-    'version' => '1.0.0',
+    'version' => '1.0.1',
     'category' => 'plugin',
     'constraints' => [
         'depends' => [
