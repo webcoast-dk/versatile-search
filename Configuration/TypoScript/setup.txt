@@ -9,7 +9,7 @@ plugin.tx_versatilesearch {
             category = c
         }
         pagination {
-            itemsPerPage = 3
+            itemsPerPage = 10
             insertAbove = 0
             insertBelow = 1
             maximumNumberOfLinks = 7
