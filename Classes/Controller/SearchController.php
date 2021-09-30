@@ -16,7 +16,7 @@ class SearchController extends ActionController
         if (!empty(trim($searchString))) {
             /** @var AbstractBackend $backend */
             $backend = GeneralUtility::makeInstance(BackendUtility::getSearchBackend(), $this->settings);
-            $searchResults = $backend->search($searchString);
+            $searchResults = $backend->search(mb_strtolower($searchString));
         } else {
             $searchResults = [];
         }
