@@ -3,7 +3,9 @@
 <f:layout name="Default"/>
 
 <f:section name="content">
-    <f:render partial="Form" arguments="{_all}"/>
+    <f:if condition="{settings.showForm}">
+        <f:render partial="Form" arguments="{_all}"/>
+    </f:if>
     <f:render partial="Result" arguments="{_all}"/>
 </f:section>
 </html>
