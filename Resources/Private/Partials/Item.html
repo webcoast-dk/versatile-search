@@ -3,7 +3,7 @@
     <h2 class="result__title">
         <f:switch expression="{resultItem.type}">
             <f:case value="page">
-                <f:link.page pageUid="{resultItem.pageId}" additionalParams="{resultItem.urlParameters}" noCacheHash="!{resultItem.useCacheHash}">{resultItem.title}</f:link.page>
+                <f:link.page pageUid="{resultItem.pageId}" additionalParams="{resultItem.urlParameters}">{resultItem.title}</f:link.page>
             </f:case>
             <f:case value="file">
                 <f:link.typolink parameter="file:{resultItem.recordId}">{resultItem.title}</f:link.typolink>

@@ -1,7 +1,7 @@
 <?php
 
-TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('WEBcoast.VersatileSearch', 'Search', ['Search' => 'search'], ['Search' => 'search']);
-TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('WEBcoast.VersatileSearch', 'Form', ['Search' => 'form']);
+TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('WEBcoast.VersatileSearch', 'Search', [\WEBcoast\VersatileSearch\Controller\SearchController::class => 'search'], [\WEBcoast\VersatileSearch\Controller\SearchController::class => 'search']);
+TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('WEBcoast.VersatileSearch', 'Form', [\WEBcoast\VersatileSearch\Controller\SearchController::class => 'form']);
 
 $searchBackend = TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('versatile_search', 'search/backend');
 switch ($searchBackend) {

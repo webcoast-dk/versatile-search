@@ -18,7 +18,7 @@
     ],
     "extra": {
         "branch-alias": {
-            "dev-master": "1.x-dev"
+            "dev-release/2.x": "2.x-dev"
         },
         "typo3/cms": {
             "extension-key": "versatile_search"
@@ -30,6 +30,7 @@
         }
     },
     "require": {
-        "typo3/cms-core": "^v9.5 || ^v10.4"
+        "typo3/cms-core": "^v10.4 || ^v11.5",
+        "typo3/cms-indexed-search": "^10.4 || ^11.5"
     }
 }
