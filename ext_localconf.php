@@ -8,3 +8,6 @@ switch ($searchBackend) {
     case 'indexed_search':
         WEBcoast\VersatileSearch\Utility\BackendUtility::setSearchBackend(WEBcoast\VersatileSearch\Backend\IndexedSearchBackend::class);
 }
+
+$GLOBALS['TYPO3_CONF_VARS']['EXT']['versatile_search']['enrichResultItem'][1660903792] = \WEBcoast\VersatileSearch\Result\DataProcessorEnricher::class;
+$GLOBALS['TYPO3_CONF_VARS']['EXT']['versatile_search']['enrichResultItem'][1660909405] = \WEBcoast\VersatileSearch\Result\TypoScriptEnricher::class;

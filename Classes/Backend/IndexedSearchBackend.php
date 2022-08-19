@@ -5,6 +5,7 @@ namespace WEBcoast\VersatileSearch\Backend;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\IndexedSearch\Domain\Repository\IndexSearchRepository;
 use TYPO3\CMS\IndexedSearch\Utility\IndexedSearchUtility;
 
@@ -113,7 +114,7 @@ class IndexedSearchBackend extends AbstractBackend
             unset($urlParameters['cHash']);
         }
 
-        return [
+        $result = [
             'title' => $rawData['item_title'],
             'type' => self::getItemType($rawData),
             'description' => $rawData['item_description'],
@@ -126,6 +127,20 @@ class IndexedSearchBackend extends AbstractBackend
             'recordId' => $rawData['recordUid'],
             'fileName' => $rawData['data_filename']
         ];
+
+        $rawRecord = [];
+        $tableName = '';
+        if ($rawData['page_id'] > 0) {
+            $rawRecord = self::getTypoScriptFrontendController()->sys_page->getPage($rawData['page_id']);
+            $tableName = 'pages';
+        } elseif ($rawData['recordUid'] > 0) {
+            $tableName = self::getTypoScriptFrontendController()->tmpl->setup['plugin.tx_versatilesearch.']['result.']['tableMapping.'][$rawData['freeIndexUid']] ?? null;
+            if ($tableName) {
+                $rawRecord = self::getTypoScriptFrontendController()->sys_page->checkRecord($tableName, $rawData['recordUid']);
+            }
+        }
+
+        return self::enrichResultItem($rawRecord, $tableName, $result);
     }
 
     protected static function getItemType($rawData)
@@ -138,5 +153,13 @@ class IndexedSearchBackend extends AbstractBackend
         }
 
         return '';
+    }
+
+    /**
+     * @return TypoScriptFrontendController
+     */
+    protected static function getTypoScriptFrontendController(): TypoScriptFrontendController
+    {
+        return $GLOBALS['TSFE'];
     }
 }

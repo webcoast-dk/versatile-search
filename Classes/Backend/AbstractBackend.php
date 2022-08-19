@@ -3,6 +3,7 @@
 namespace WEBcoast\VersatileSearch\Backend;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use WEBcoast\VersatileSearch\Result\ResultEnricherInterface;
 
 abstract class AbstractBackend
 {
@@ -110,4 +111,18 @@ abstract class AbstractBackend
      * @return array
      */
     public abstract static function fetchResult($rawData);
+
+    protected static function enrichResultItem(array $rawResult, string $tableName, array $resultItem)
+    {
+        foreach($GLOBALS['TYPO3_CONF_VARS']['EXT']['versatile_search']['enrichResultItem'] ?? [] as $resultItemEnricherClass) {
+            $enricher = GeneralUtility::makeInstance($resultItemEnricherClass);
+            if (!$enricher instanceof ResultEnricherInterface) {
+                throw new \RuntimeException(sprintf('%s must implement %s', get_class($enricher), ResultEnricherInterface::class));
+            }
+
+            $resultItem = $enricher->enrich($rawResult, $tableName, $resultItem);
+        }
+
+        return $resultItem;
+    }
 }
