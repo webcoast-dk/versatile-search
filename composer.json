@@ -18,7 +18,7 @@
     ],
     "extra": {
         "branch-alias": {
-            "dev-release/2.x": "2.x-dev"
+            "dev-release/2.0": "2.0.x-dev"
         },
         "typo3/cms": {
             "extension-key": "versatile_search"
