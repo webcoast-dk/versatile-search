@@ -8,6 +8,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\IndexedSearch\Domain\Repository\IndexSearchRepository;
 use TYPO3\CMS\IndexedSearch\Utility\IndexedSearchUtility;
+use WEBcoast\VersatileSearch\Pagination\IndexedSearchPaginator;
 
 class IndexedSearchBackend extends AbstractBackend
 {
@@ -23,17 +24,18 @@ class IndexedSearchBackend extends AbstractBackend
 
     /**
      * @param string $searchString
+     * @param int    $currentPage
+     * @param null   $category
      *
      * @return array
      */
-    public function search($searchString)
+    public function search(string $searchString, int $currentPage = 1, $category = null): array
     {
-        $page = $this->getCurrentPage();
-        $category = $this->getCurrentCategory();
         // Always use current language for searches
-        $searchData['pointer'] = $page ? $page - 1 : 0;
+        $searchData['pointer'] = $currentPage ? $currentPage - 1 : 0;
         $searchData['sword'] = $searchString;
-        $this->initializeSearchRepository($searchData);
+        $itemsPerPage = (int) ($this->settings['pagination']['itemsPerPage'] ?? 10);
+        $this->initializeSearchRepository($searchData, $itemsPerPage);
         $searchWords = IndexedSearchUtility::getExplodedSearchString($searchString, 'OR', []);
         $indexConfigurations = [];
         foreach (GeneralUtility::trimExplode(',', $this->settings['indexConfigurations'], true) as $indexConfigurationId) {
@@ -49,41 +51,43 @@ class IndexedSearchBackend extends AbstractBackend
                     return $item['sword'];
                 },
                 $searchWords),
-            'types' => [],
+            'categories' => [],
             'results' => [],
-            'pagination' => []
+            'paginator' => []
         ];
+
         if (count($indexConfigurations) > 0) {
             foreach ($indexConfigurations as $indexConfiguration) {
                 if ($category === null || $category === (string)$indexConfiguration['uid']) {
                     $results = $this->searchRepository->doSearch($searchWords, $indexConfiguration['uid']);
                     if ($results['count'] > 0) {
-                        $data['types'][] = [
+                        $data['categories'][] = [
                             'configuration' => $indexConfiguration,
                             'results' => $results['resultRows'],
-                            'pagination' => $this->buildPagination($results['count'])
+                            'paginator' => GeneralUtility::makeInstance(IndexedSearchPaginator::class, $results['resultRows'], $results['count'], $itemsPerPage, $currentPage),
                         ];
                     }
                 } else {
-                    $data['types'][] = [
+                    $data['categories'][] = [
                         'configuration' => $indexConfiguration,
-                        'results' => []
+                        'results' => [],
+                        'paginator' => null,
                     ];
                 }
             }
         } else {
             $results = $this->searchRepository->doSearch($searchWords);
             $data['results'] = $results['resultRows'];
-            $data['pagination'] = $this->buildPagination($results['count']);
+            $data['paginator'] = GeneralUtility::makeInstance(IndexedSearchPaginator::class, $results['resultRows'], $results['count'], $itemsPerPage, $currentPage);
         }
 
         return $data;
     }
 
-    protected function initializeSearchRepository($searchData)
+    protected function initializeSearchRepository($searchData, int $itemsPerPage)
     {
         $searchData['languageUid'] = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id', 0);
-        $searchData['numberOfResults'] = $this->getPaginationItemsPerPage();
+        $searchData['numberOfResults'] = $itemsPerPage;
         $searchData['sortOrder'] = 'rank_flag';
         $searchData['mediaType'] = '-1'; // Search for everything
         $this->searchRepository->initialize(
