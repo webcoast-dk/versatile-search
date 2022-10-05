@@ -33,5 +33,8 @@
         "typo3/cms-core": "^v10.4 || ^v11.5",
         "typo3/cms-frontend": "^10.4 || ^11.5",
         "typo3/cms-indexed-search": "^10.4 || ^11.5"
+    },
+    "suggest": {
+        "georgringer/numbered-pagination": "*"
     }
 }
