@@ -1,2 +1,5 @@
 # cat=General; type=options[LLL:EXT:versatile_search/Resources/Private/Language/backend.xlf:conf.search.backend.indexed_search=indexed_search,LLL:EXT:versatile_search/Resources/Private/Language/backend.xlf:conf.search.backend.none=none]; label=LLL:EXT:versatile_search/Resources/Private/Language/backend.xlf:conf.search.backend
 search.backend = indexed_search
+
+suggest.maxItems = 10
+suggest.minCharacters = 3
