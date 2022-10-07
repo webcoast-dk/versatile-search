@@ -64,7 +64,7 @@ class IndexedSearchBackend extends AbstractBackend
                         $data['categories'][] = [
                             'configuration' => $indexConfiguration,
                             'results' => $results['resultRows'],
-                            'paginator' => GeneralUtility::makeInstance(IndexedSearchPaginator::class, $results['resultRows'], $results['count'], $itemsPerPage, $currentPage),
+                            'paginator' => GeneralUtility::makeInstance(IndexedSearchPaginator::class, $results['resultRows'] ?? [], $results['count'] ?? 0, $itemsPerPage, $currentPage),
                         ];
                     }
                 } else {
@@ -78,7 +78,7 @@ class IndexedSearchBackend extends AbstractBackend
         } else {
             $results = $this->searchRepository->doSearch($searchWords);
             $data['results'] = $results['resultRows'];
-            $data['paginator'] = GeneralUtility::makeInstance(IndexedSearchPaginator::class, $results['resultRows'], $results['count'], $itemsPerPage, $currentPage);
+            $data['paginator'] = GeneralUtility::makeInstance(IndexedSearchPaginator::class, $results['resultRows'] ??[], $results['count'] ?? 0, $itemsPerPage, $currentPage);
         }
 
         return $data;
