@@ -41,4 +41,9 @@ class IndexedSearchPaginator extends AbstractPaginator
     {
         return $this->resultRows;
     }
+
+    public function getResultCount()
+    {
+        return $this->resultCount;
+    }
 }
