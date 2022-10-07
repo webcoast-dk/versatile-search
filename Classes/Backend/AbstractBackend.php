@@ -34,6 +34,17 @@ abstract class AbstractBackend
     public abstract function search(string $searchString, int $currentPage, $category = null): array;
 
     /**
+     * Return an array of words for search suggestions
+     *
+     * @param string $searchString
+     * @param int    $maxItems
+     * @param int    $languageUid
+     *
+     * @return array
+     */
+    public abstract function suggest(string $searchString, int $maxItems, int $languageUid): array;
+
+    /**
      * Takes the raw result row and converts it into a standardized format to be used in the output.
      *
      * @param array $rawData

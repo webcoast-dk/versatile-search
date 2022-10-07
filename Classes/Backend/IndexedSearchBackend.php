@@ -4,6 +4,7 @@ namespace WEBcoast\VersatileSearch\Backend;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\IndexedSearch\Domain\Repository\IndexSearchRepository;
@@ -82,6 +83,29 @@ class IndexedSearchBackend extends AbstractBackend
         }
 
         return $data;
+    }
+
+    public function suggest(string $searchString, int $maxItems, int $languageUid): array
+    {
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('index_words');
+        $queryBuilder
+            ->select('w.baseword')
+            ->from('index_words', 'w')
+            ->join('w', 'index_rel', 'r', 'w.wid=r.wid')
+            ->join('r', 'index_phash', 'p', 'r.phash=p.phash')
+            ->where(
+                $queryBuilder->expr()->like('w.baseword', $queryBuilder->createNamedParameter($searchString . '%')),
+                $queryBuilder->expr()->eq('p.sys_language_uid', $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT))
+            )
+            ->groupBy('w.baseword')
+            ->setMaxResults($maxItems)
+            ->orderBy('w.baseword', 'asc');
+
+        $result = $queryBuilder->executeQuery();
+        $words = $result->fetchFirstColumn();
+        $result->free();
+
+        return $words;
     }
 
     protected function initializeSearchRepository($searchData, int $itemsPerPage)
