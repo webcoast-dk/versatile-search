@@ -1,0 +1,23 @@
+mod.wizards.newContentElement.wizardItems.forms {
+    elements {
+        versatilesearch_search {
+            title = LLL:EXT:versatile_search/Resources/Private/Language/backend.xlf:plugin.search.title
+            description = LLL:EXT:versatile_search/Resources/Private/Language/backend.xlf:plugin.search.description
+            iconIdentifier = versatile-search-plugin
+            tt_content_defValues {
+                CType = versatilesearch_search
+            }
+        }
+
+        versatilesearch_form {
+            title = LLL:EXT:versatile_search/Resources/Private/Language/backend.xlf:plugin.form.title
+            description = LLL:EXT:versatile_search/Resources/Private/Language/backend.xlf:plugin.form.description
+            iconIdentifier = versatile-search-plugin
+            tt_content_defValues {
+                CType = versatilesearch_form
+            }
+        }
+    }
+
+    show := addToList(versatilesearch_search, versatilesearch_form)
+}
