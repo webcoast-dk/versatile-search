@@ -18,6 +18,10 @@ class IndexedSearchBackend extends AbstractBackend
      */
     protected $searchRepository = null;
 
+    public const WILDCARD_START = 'start';
+    public const WILDCARD_END = 'end';
+    public const WILDCARD_BOTH = 'both';
+
     public function initialize()
     {
         $this->searchRepository = GeneralUtility::makeInstance(IndexSearchRepository::class);
@@ -114,6 +118,19 @@ class IndexedSearchBackend extends AbstractBackend
         $searchData['numberOfResults'] = $itemsPerPage;
         $searchData['sortOrder'] = 'rank_flag';
         $searchData['mediaType'] = '-1'; // Search for everything
+        if ($this->settings['enableWildcard']) {
+            switch ($this->settings['enableWildcard']) {
+                case self::WILDCARD_START:
+                    $searchData['searchType'] = 3;
+                    break;
+                case self::WILDCARD_END:
+                    $searchData['searchType'] = 2;
+                    break;
+                case self::WILDCARD_BOTH:
+                    $searchData['searchType'] = 1;
+                    break;
+            }
+        }
         $this->searchRepository->initialize(
             [
                 'searchSkipExtendToSubpagesChecking' => true,
