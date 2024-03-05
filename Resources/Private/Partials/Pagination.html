@@ -5,7 +5,7 @@
             <li class="pagination__item pagination__item--previous">
                 <f:if condition="{pagination.previousPageNumber} > 1">
                     <f:then>
-                        <s:pagination.link page="{pagination.previousPageNumber}" rel="prev" class="pagination__link" settings="{settings}" additionalParams="{additionalPaginationParams}">
+                        <f:link.page rel="prev" class="pagination__link" additionalParams="{s:merge(base: {q: searchString, page: pagination.previousPageNumber}, merge: additionalPaginationParams)}">
                             <f:if condition="{settings.pagination.translatePreviousNext}">
                                 <f:then>
                                     <f:translate id="pagination.previous"/>
@@ -14,10 +14,10 @@
                                     &nbsp;
                                 </f:else>
                             </f:if>
-                        </s:pagination.link>
+                        </f:link.page>
                     </f:then>
                     <f:else>
-                        <s:pagination.link settings="{settings}" rel="prev" class="pagination__link">
+                        <f:link.page rel="prev" class="pagination__link" additionalParams="{s:merge(base: {q: searchString}, merge: additionalPaginationParams)}">
                             <f:if condition="{settings.pagination.translatePreviousNext}">
                                 <f:then>
                                     <f:translate id="pagination.previous"/>
@@ -26,14 +26,14 @@
                                     &nbsp;
                                 </f:else>
                             </f:if>
-                        </s:pagination.link>
+                        </f:link.page>
                     </f:else>
                 </f:if>
             </li>
         </f:if>
         <f:if condition="{pagination.displayRangeStart} > 1">
             <li class="pagination__item pagination__item--first">
-                <s:pagination.link page="{pagination.previous}" class="pagination__link" settings="{settings}" additionalParams="{additionalPaginationParams}"><f:translate id="pagination.page" arguments="{0: 1}" /></s:pagination.link>
+                <f:link.page class="pagination__link" additionalParams="{s:merge(base: {q: searchString}, merge: additionalPaginationParams)}"><f:translate id="pagination.page" arguments="{0: 1}" /></f:link.page>
             </li>
         </f:if>
         <f:if condition="{pagination.hasLessPages}">
@@ -50,10 +50,10 @@
                     <li class="pagination__item">
                         <f:if condition="{page} > 1">
                             <f:then>
-                                <s:pagination.link page="{page}" class="pagination__link" settings="{settings}" additionalParams="{additionalPaginationParams}"><f:translate id="pagination.page" arguments="{0: page}" /></s:pagination.link>
+                                <f:link.page class="pagination__link" additionalParams="{s:merge(base: {q: searchString, page: page}, merge: additionalPaginationParams)}"><f:translate id="pagination.page" arguments="{0: page}" /></f:link.page>
                             </f:then>
                             <f:else>
-                                <s:pagination.link class="pagination__link" settings="{settings}"><f:translate id="pagination.page" arguments="{0: page}" /></s:pagination.link>
+                                <f:link.page class="pagination__link" additionalParams="{s:merge(base: {q: searchString}, merge: additionalPaginationParams)}"><f:translate id="pagination.page" arguments="{0: page}" /></f:link.page>
                             </f:else>
                         </f:if>
                     </li>
@@ -65,12 +65,12 @@
         </f:if>
         <f:if condition="{pagination.displayRangeEnd} > 1 && {pagination.displayRangeEnd} < {pagination.lastPageNumber}">
             <li class="pagination__item pagination__item--last">
-                <s:pagination.link class="pagination__link" settings="{settings}" page="{pagination.lastPageNumber}" additionalParams="{additionalPaginationParams}"><f:translate id="pagination.page" arguments="{0: pagination.lastPageNumber}" /></s:pagination.link>
+                <f:link.page class="pagination__link" additionalParams="{s:merge(base: {q: searchString, page: pagination.lastPageNumber}, merge: additionalPaginationParams)}"><f:translate id="pagination.page" arguments="{0: pagination.lastPageNumber}" /></f:link.page>
             </li>
         </f:if>
         <f:if condition="{pagination.nextPageNumber}">
             <li class="pagination__item pagination__item--next">
-                <s:pagination.link class="pagination__link" settings="{settings}" page="{pagination.nextPageNumber}" additionalParams="{additionalPaginationParams}">
+                <f:link.page class="pagination__link" additionalParams="{s:merge(base: {q: searchString, page: pagination.nextPageNumber}, merge: additionalPaginationParams)}">
                     <f:if condition="{settings.pagination.translatePreviousNext}">
                         <f:then>
                             <f:translate id="pagination.next"/>
@@ -79,7 +79,7 @@
                             &nbsp;
                         </f:else>
                     </f:if>
-                </s:pagination.link>
+                </f:link.page>
             </li>
         </f:if>
     </ul>
