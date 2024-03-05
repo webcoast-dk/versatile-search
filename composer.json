@@ -18,7 +18,7 @@
     ],
     "extra": {
         "branch-alias": {
-            "dev-release/2.0": "2.0.x-dev"
+            "dev-main": "3.0.x-dev"
         },
         "typo3/cms": {
             "extension-key": "versatile_search"
@@ -30,9 +30,9 @@
         }
     },
     "require": {
-        "typo3/cms-core": "^v10.4 || ^v11.5 || ^12.4",
-        "typo3/cms-frontend": "^10.4 || ^11.5 || ^12.4",
-        "typo3/cms-indexed-search": "^10.4 || ^11.5 || ^12.4"
+        "typo3/cms-core": "^12.4",
+        "typo3/cms-frontend": "^12.4",
+        "typo3/cms-indexed-search": "^12.4"
     },
     "suggest": {
         "georgringer/numbered-pagination": "*"

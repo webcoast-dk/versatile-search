@@ -29,7 +29,7 @@ class SearchController extends ActionController
         }
 
         $paginationClass = $this->settings['pagination']['class'] ?? SimplePagination::class;
-        if (count($searchResults['categories']) > 0) {
+        if (count($searchResults['categories'] ?? []) > 0) {
             foreach($searchResults['categories'] as &$categoryResult) {
                 if (array_key_exists('paginator', $categoryResult) && $categoryResult['paginator'] instanceof PaginatorInterface) {
                     $categoryResult['pagination'] = $this->getPagination($paginationClass, $maximumNumberOfLinks, $categoryResult['paginator']);
@@ -41,11 +41,15 @@ class SearchController extends ActionController
 
         $this->view->assign('searchString', $searchString);
         $this->view->assignMultiple($searchResults);
+
+        return $this->htmlResponse();
     }
 
     public function formAction()
     {
         // This action has no logic. It just displays the static search form and is cached.
+
+        return $this->htmlResponse();
     }
 
     protected function getPagination($paginationClass, $maximumNumberOfLinks, $paginator)

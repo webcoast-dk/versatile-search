@@ -81,7 +81,7 @@ class IndexedSearchBackend extends AbstractBackend
                 }
             }
         } else {
-            $results = $this->searchRepository->doSearch($searchWords);
+            $results = $this->searchRepository->doSearch($searchWords, -1);
             $data['results'] = $results['resultRows'];
             $data['paginator'] = GeneralUtility::makeInstance(IndexedSearchPaginator::class, $results['resultRows'] ??[], $results['count'] ?? 0, $itemsPerPage, $currentPage);
         }
