@@ -21,3 +21,7 @@ $GLOBALS['TYPO3_CONF_VARS']['EXT']['versatile_search']['enrichResultItem'][16609
         'source' => 'EXT:versatile_search/Resources/Public/Icons/Extension.svg'
     ]
 );
+
+$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'q';
+$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'p';
+$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'c';
