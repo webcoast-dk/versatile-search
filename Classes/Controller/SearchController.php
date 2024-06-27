@@ -14,10 +14,10 @@ class SearchController extends ActionController
 {
     public function searchAction()
     {
-        $searchString = htmlspecialchars(strip_tags($this->request->getQueryParams()[($this->settings['parameters']['search'] ?? 'q')]), ENT_QUOTES, 'UTF-8');
-        $currentPage = $this->request->getQueryParams()[($this->settings['parameters']['page'] ?? 'p')];
+        $searchString = htmlspecialchars(strip_tags($this->request->getQueryParams()[($this->settings['parameters']['search'] ?? 'q')] ?? ''), ENT_QUOTES, 'UTF-8');
+        $currentPage = $this->request->getQueryParams()[($this->settings['parameters']['page'] ?? 'p')] ?? 1;
         $currentPage = max(1, $currentPage ? (int)$currentPage : 1);
-        $category = $this->request->getQueryParams()[($this->settings['parameters']['category'] ?? 'c')];
+        $category = $this->request->getQueryParams()[($this->settings['parameters']['category'] ?? 'c')] ?? null;
         $maximumNumberOfLinks = (int)($this->settings['pagination']['maximumNumberOfLinks'] ?? 7);
 
         if (!empty(trim($searchString))) {
