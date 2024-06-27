@@ -11,7 +11,7 @@ jobs:
             TYPO3_API_TOKEN: ${{ secrets.TYPO3_API_TOKEN }}
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Check tag
               run: |
@@ -26,7 +26,7 @@ jobs:
             - name: Get comment
               id: get-comment
               run: |
-                  comment='${{ github.event.release.body }}'
+                  comment="${{ github.event.release.body }}"
                   comment="${comment//'%'/'%25'}"
                   comment="${comment//'`'/''}"
                   comment="${comment//$'\n'/'%0A'}"
