@@ -1,7 +1,7 @@
 <?php
 
-TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('WEBcoast.VersatileSearch', 'Search', [\WEBcoast\VersatileSearch\Controller\SearchController::class => 'search'], [\WEBcoast\VersatileSearch\Controller\SearchController::class => 'search'], \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT);
-TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('WEBcoast.VersatileSearch', 'Form', [\WEBcoast\VersatileSearch\Controller\SearchController::class => 'form'], [], \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT);
+TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('VersatileSearch', 'Search', [\WEBcoast\VersatileSearch\Controller\SearchController::class => 'search'], [\WEBcoast\VersatileSearch\Controller\SearchController::class => 'search'], \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT);
+TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('VersatileSearch', 'Form', [\WEBcoast\VersatileSearch\Controller\SearchController::class => 'form'], [], \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT);
 
 $searchBackend = TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('versatile_search', 'search/backend');
 switch ($searchBackend) {
@@ -21,3 +21,7 @@ $GLOBALS['TYPO3_CONF_VARS']['EXT']['versatile_search']['enrichResultItem'][16609
         'source' => 'EXT:versatile_search/Resources/Public/Icons/Extension.svg'
     ]
 );
+
+$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'q';
+$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'p';
+$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'c';

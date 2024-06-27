@@ -1,6 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/ViewHelper" xmlns:s="http://typo3.org/ns/WEBcoast/VersatileSearch/ViewHelpers" data-namespace-typo3-fluid="true">
 
-<f:if condition="{paginator.numberOfPages} > 1">
+<f:if condition="{pagination.lastPageNumber} > 1">
     <f:then>
         <f:if condition="{settings.pagination.insertAbove}">
             <f:render partial="Pagination" arguments="{_all}" />

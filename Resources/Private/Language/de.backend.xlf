@@ -10,10 +10,6 @@
                 <source>Search form only</source>
                 <target>Suchformular</target>
             </trans-unit>
-            <trans-unit id="plugin.typoscript">
-                <source>Basic search settings</source>
-                <target>Suche: Standardeinstellungen</target>
-            </trans-unit>
 
             <trans-unit id="conf.search.backend">
                 <source>Search backend: Which search backend should be used</source>

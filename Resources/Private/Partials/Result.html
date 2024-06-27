@@ -1,10 +1,10 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/ViewHelper" xmlns:s="http://typo3.org/ns/WEBcoast/VersatileSearch/ViewHelpers" data-namespace-typo3-fluid="true">
-    <f:if condition="{types -> f:count()} > 1">
+    <f:if condition="{categories -> f:count()} > 1">
         <f:then>
             <div class="tabs js-tabs">
                 <nav class="tabs__nav" role="navigation">
                     <ul class="tabs__list" role="tablist">
-                        <f:for each="{types}" as="tab" iteration="tabsIterator">
+                        <f:for each="{categories}" as="tab" iteration="tabsIterator">
                             <f:if condition="{tab.results -> f:count()} > 0">
                                 <li class="tabs__item js-tabs-item" data-target="#search_tab{tabsIterator.index}" role="tab">
                                     {tab.configuration.title}
@@ -14,9 +14,9 @@
                     </ul>
                 </nav>
                 <div class="tabs__content">
-                    <f:for each="{types}" as="tab" iteration="tabsIterator">
+                    <f:for each="{categories}" as="tab" iteration="tabsIterator">
                         <div class="tabs__panel js-tabs-panel" id="search_tab{tabsIterator.index}" role="tabpanel">
-                            <f:alias map="{results: tab.results, pagination: tab.pagination, additionalPaginationParams: {c: tab.configuration.uid}}">
+                            <f:alias map="{results: tab.results, pagination: tab.pagination, paginator: tab.paginator, additionalPaginationParams: {c: tab.configuration.uid}}">
                                 <f:render partial="ResultList" arguments="{_all}" />
                             </f:alias>
                         </div>
@@ -24,8 +24,8 @@
                 </div>
             </div>
         </f:then>
-        <f:else if="{types -> f:count()} == 1">
-            <f:alias map="{results: types.0.results, pagination: types.0.pagination}">
+        <f:else if="{categories -> f:count()} == 1">
+            <f:alias map="{results: categories.0.results, pagination: types.0.pagination}">
                 <f:render partial="ResultList" arguments="{_all}" />
             </f:alias>
         </f:else>

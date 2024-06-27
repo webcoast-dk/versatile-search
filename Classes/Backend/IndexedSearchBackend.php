@@ -43,7 +43,7 @@ class IndexedSearchBackend extends AbstractBackend
         $this->initializeSearchRepository($searchData, $itemsPerPage);
         $searchWords = IndexedSearchUtility::getExplodedSearchString($searchString, 'OR', []);
         $indexConfigurations = [];
-        foreach (GeneralUtility::trimExplode(',', $this->settings['indexConfigurations'], true) as $indexConfigurationId) {
+        foreach (GeneralUtility::trimExplode(',', $this->settings['indexConfigurations'] ?? '', true) as $indexConfigurationId) {
             $indexConfiguration = BackendUtility::getRecord('index_config', $indexConfigurationId);
             if ($indexConfiguration && !$indexConfiguration['hidden']) {
                 $indexConfigurations[] = $indexConfiguration;
@@ -81,7 +81,7 @@ class IndexedSearchBackend extends AbstractBackend
                 }
             }
         } else {
-            $results = $this->searchRepository->doSearch($searchWords);
+            $results = $this->searchRepository->doSearch($searchWords, -1);
             $data['results'] = $results['resultRows'];
             $data['paginator'] = GeneralUtility::makeInstance(IndexedSearchPaginator::class, $results['resultRows'] ??[], $results['count'] ?? 0, $itemsPerPage, $currentPage);
         }
@@ -118,7 +118,7 @@ class IndexedSearchBackend extends AbstractBackend
         $searchData['numberOfResults'] = $itemsPerPage;
         $searchData['sortOrder'] = 'rank_flag';
         $searchData['mediaType'] = '-1'; // Search for everything
-        if ($this->settings['enableWildcard']) {
+        if ($this->settings['enableWildcard'] ?? 0) {
             switch ($this->settings['enableWildcard']) {
                 case self::WILDCARD_START:
                     $searchData['searchType'] = 3;
